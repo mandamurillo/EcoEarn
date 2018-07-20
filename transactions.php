@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>EcoEarn</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+  <style>
+body {
+    overflow:hidden;
+}
+.transparent {
+    border-width: 0px;
+    -webkit-box-shadow: 0px 0px;
+    box-shadow: 0px 0px;
+    background-color: rgba(0,0,0,0.0);
+    background-image: -webkit-gradient(linear, 50.00% 0.00%, 50.00% 100.00%, color-stop( 0% , rgba(0,0,0,0.00)),color-stop( 100% , rgba(0,0,0,0.00)));
+    background-image: -webkit-linear-gradient(270deg,rgba(0,0,0,0.00) 0%,rgba(0,0,0,0.00) 100%);
+    background-image: linear-gradient(180deg,rgba(0,0,0,0.00) 0%,rgba(0,0,0,0.00) 100%);
+  }
+  .access {
+    border: 2px dashed red; 
+  }
+  .register {
+      overflow-y: auto;
+      background-color: #dddddd;
+      width: 90%;
+      position: relative;
+      height: 50%;
+  }
+  .register:after {
+  content: "";
+  display: block;
+}
+  .content {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+td, th {
+    border: 1px solid darkgrey;
+    text-align: left;
+    padding: 8px;
+}
+tr:nth-child(even) {
+    background-color: lightgrey;
+}
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+    color: black;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+.btn-block {
+    height: 15%;
+    width: 500px;
+    padding: 1rem;
+    /* define values in pixels / Percentage or em. whatever suits 
+       your requirements */
+}
+  </style>
+</head>
+<body>
+
+<div class="container-fluid" style="margin-top:30px">
+  <div class="row">
+    <div class="col-sm-7">
+      <h2>Register</h2>
+      <div class="col-sm-11">
+      <h5>Please insert recycling to begin adding to the register. If you're unsure an object is recycling, please select the "Key" button over on the right-hand side.
+      </h5>
+      </div>
+      <div class="register" id="registerID">
+        <div class="content">
+        <table id="registerTABLE">
+          <tr>
+            <th>Material</th>
+            <th>Points</th>
+          </tr>
+        </table>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+    <ul class="nav nav-pills flex-column">
+        <li>
+          <div class="col-5">
+    <button id="myBtnKey" type="button" style="font-size: 4vw; margin-bottom: 4rem; padding-right: 10%" class="btn btn-primary btn-block">
+      KEY
+    </button>
+        </li> 
+        <li>
+          <div class="col-4">
+    <button id="myBtnBalance" type="button" style="font-size: 4vw; margin-bottom: 4rem; padding-right: 10%" class="btn btn-primary btn-block">
+      CARD BALANCE
+    </button>
+    <div id="myModalBalance" class="modal">
+      <!-- Modal content -->
+      <div class="modal-content">
+        <span class="close" style="text-align: right">&times;</span>
+        <p>You currently have # points in your account.</p>
+       </div>
+    </div>  
+  </div>
+        </li>
+        <li>
+          <div class="col-4">
+    <button id="myBtnEnd" type="button" style="font-size: 4vw; margin-bottom: 4rem; padding-right: 10%" class="btn btn-primary btn-block">
+      END
+    </button>
+    <div id="myModalEnd" class="modal">
+      <!-- Modal content -->
+      <div class="modal-content">
+        <span class="close" style="text-align: right">&times;</span>
+        <p>Thank you for using EcoEarn! Your total points have been added to your card and you have now exited the session.</p>
+       </div>
+    </div>  
+  </div>
+        </li>
+        <li>
+           <button type="button" style="background-color: transparent;border: none;" class="btn btn-primary btn-block"> 
+      <a class="nav-link" href="hello-world.php">.</a>
+    </button>
+        </li>
+      </ul>
+      <hr class="d-sm-none">
+    </div>
+  </div>
+</div>
+  <script>
+    var objDiv = document.getElementById("registerID");
+objDiv.scrollTop = objDiv.scrollHeight;
+  </script>
+  <script>
+    var table = document.getElementById("registerTABLE");
+for (var i = 1; i < 20; i++){
+    var tr = document.createElement('tr');
+
+    var td1 = document.createElement('td');
+    var td2 = document.createElement('td');
+
+    var text1 = document.createTextNode('ExampleMaterial');
+    var text2 = document.createTextNode('#Points');
+
+    td1.appendChild(text1);
+    td2.appendChild(text2);
+    tr.appendChild(td1);
+    tr.appendChild(td2);
+
+    table.appendChild(tr);
+}
+document.getElementById("registerID").appendChild(table);
+  </script>
+  <script>
+// Get the modal
+var endmodal = document.getElementById('myModalEnd');
+
+// Get the button that opens the modal
+var endbtn = document.getElementById("myBtnEnd");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// Get the modal
+var balancemodal = document.getElementById('myModalBalance');
+
+// Get the button that opens the modal
+var balancebtn = document.getElementById("myBtnBalance");
+
+// When the user clicks the button, open the modal 
+endbtn.onclick = function() {
+    endmodal.style.display = "block";
+}
+
+// When the user clicks the button, open the modal 
+balancebtn.onclick = function() {
+    balancemodal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    balancemodal.style.display = "none";
+    endmodal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == endmodal) {
+        endmodal.style.display = "none";
+    }
+    if (event.target == balancemodal) {
+        balancemodal.style.display = "none";
+    }
+}
+</script>
+</body>
+</html>
+
